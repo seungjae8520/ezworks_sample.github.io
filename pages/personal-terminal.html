@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인 단말기 - Ezworks 결제 솔루션</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js" defer></script>
+    <style>
+        .product-header {
+            background-color: #f5f7ff;
+            padding: 100px 0 50px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-header:before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(18, 89, 195, 0.05) 0%, rgba(187, 197, 236, 0) 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .product-header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .product-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .product-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .product-logo {
+            max-height: 70px;
+            margin-bottom: 20px;
+        }
+        
+        .product-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .product-section:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .product-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(18, 89, 195, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .feature-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .product-image-showcase {
+            display: flex;
+            align-items: center;
+            margin: 50px 0;
+        }
+        
+        .product-image-container {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .product-image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-description {
+            flex: 1;
+            padding: 0 30px;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .pricing-table th {
+            background-color: #1259c3;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .primary-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #1259c3;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .primary-button:hover {
+            background-color: #0046be;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(18, 89, 195, 0.2);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-item h3 {
+            padding: 20px;
+            margin: 0;
+            font-size: 18px;
+            background-color: #f9fafc;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item h3:after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        .faq-item.open h3:after {
+            content: '-';
+        }
+        
+        .faq-item p {
+            margin: 0;
+            padding: 0 20px 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .terminal-types {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .terminal-type {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .terminal-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .terminal-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9fafc;
+        }
+        
+        .terminal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .terminal-info {
+            padding: 20px;
+        }
+        
+        .terminal-name {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1259c3;
+        }
+        
+        .terminal-specs {
+            margin-bottom: 15px;
+        }
+        
+        .terminal-specs p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .terminal-specs p strong {
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .product-image-showcase {
+                flex-direction: column;
+            }
+            
+            .product-description {
+                padding: 30px 0 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-title {
+                font-size: 32px;
+            }
+            
+            .terminal-types {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .terminal-type {
+                width: 100%;
+            }
+        }
+        
+        /* 상품 네비게이션 스타일 */
+        .product-navigation {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 70px;
+            left: 0;
+            z-index: 900;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .product-navigation .container {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .product-navigation ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-navigation li {
+            margin: 0;
+        }
+        
+        .product-navigation a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-navigation a:hover {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #1259c3;
+        }
+        
+        @media (max-width: 768px) {
+            .product-navigation {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                top: 80px;
+            }
+            
+            .product-navigation ul {
+                padding: 0 10px;
+            }
+            
+            .product-navigation a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../images/logo.png" alt="Ezworks"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html#payment-solutions" class="active">결제</a></li>
+                    <li><a href="apply.html">신청하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 상품 네비게이션 바 추가 -->
+    <div class="product-navigation">
+        <div class="container">
+            <ul>
+                <li><a href="bullet-transfer.html">총알 송금</a></li>
+                <li><a href="personal-terminal.html" class="active">개인 단말기</a></li>
+                <li><a href="multi-tid.html">TID 다중 결제</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <section class="product-header">
+            <div class="container">
+                <img src="../images/logo-terminal.png" alt="개인 단말기" class="product-logo">
+                <h1 class="product-title">개인 단말기</h1>
+                <p class="product-subtitle">언제 어디서나 편리하게 결제할 수 있는 무선 결제 솔루션</p>
+                <a href="apply.html?product=개인 단말기" class="primary-button">신청하기</a>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>무선 결제 단말기</h2>
+                <div class="product-image-showcase">
+                    <div class="product-image-container">
+                        <img src="../images/wireless-terminal.png" alt="개인 단말기 서비스">
+                    </div>
+                    <div class="product-description">
+                        <p>개인 무선 결제 단말기는 장소와 시간에 구애받지 않고 어디서든 결제가 가능한 혁신적인 솔루션입니다. 와이파이나 셀룰러 네트워크에 연결하여 언제 어디서나 카드 결제를 진행할 수 있어 외부 영업, 배달, 이동식 매장 등에 최적화되어 있습니다.</p>
+                        <p>다양한 결제 방식을 지원하며, 빠른 결제 처리 속도와 안정적인 보안 시스템을 갖추고 있어 고객 만족도를 높이고 매출 증대에 기여합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>주요 특징</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/mobile.svg" alt="모바일">
+                        </div>
+                        <h3 class="feature-title">무선 이동성</h3>
+                        <p class="feature-description">장소에 구애받지 않고 어디서든 결제가 가능하여 외부 영업이나 이동식 매장에 적합합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/card.svg" alt="카드">
+                        </div>
+                        <h3 class="feature-title">다양한 결제 방식</h3>
+                        <p class="feature-description">IC카드, 마그네틱, 터치 결제 등 다양한 결제 방식을 모두 지원합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/clock.svg" alt="시계">
+                        </div>
+                        <h3 class="feature-title">빠른 처리 속도</h3>
+                        <p class="feature-description">결제 처리 시간이 평균 3초 이내로 고객 대기 시간을 최소화합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/bank.svg" alt="은행">
+                        </div>
+                        <h3 class="feature-title">D+1일 정산</h3>
+                        <p class="feature-description">빠른 정산 시스템으로 다음 날 바로 입금되어 자금 흐름 관리에 효과적입니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/percent.svg" alt="할인">
+                        </div>
+                        <h3 class="feature-title">합리적인 수수료</h3>
+                        <p class="feature-description">업종별 맞춤형 수수료 정책으로 비용 부담을 최소화합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/user.svg" alt="사용자">
+                        </div>
+                        <h3 class="feature-title">손쉬운 사용법</h3>
+                        <p class="feature-description">직관적인 인터페이스로 별도 교육 없이도 쉽게 사용할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>단말기 종류</h2>
+                <p style="text-align: center; margin-bottom: 40px;">비즈니스 유형과 요구사항에 맞는 다양한 단말기를 제공합니다.</p>
+                <div class="terminal-types">
+                    <div class="terminal-type">
+                        <div class="terminal-image">
+                            <img src="../images/terminal-standard.png" alt="스탠다드 단말기">
+                        </div>
+                        <div class="terminal-info">
+                            <h3 class="terminal-name">스탠다드 모델</h3>
+                            <div class="terminal-specs">
+                                <p><strong>화면:</strong> 3.5인치 터치스크린</p>
+                                <p><strong>배터리:</strong> 최대 12시간 사용</p>
+                                <p><strong>연결:</strong> Wi-Fi, 4G LTE</p>
+                                <p><strong>결제방식:</strong> IC, 마그네틱, 터치 결제</p>
+                                <p><strong>크기:</strong> 소형, 휴대성 우수</p>
+                            </div>
+                            <p>소규모 매장, 개인 사업자에게 적합한 모델입니다.</p>
+                        </div>
+                    </div>
+                    <div class="terminal-type">
+                        <div class="terminal-image">
+                            <img src="../images/terminal-premium.png" alt="프리미엄 단말기">
+                        </div>
+                        <div class="terminal-info">
+                            <h3 class="terminal-name">프리미엄 모델</h3>
+                            <div class="terminal-specs">
+                                <p><strong>화면:</strong> 5인치 고해상도 터치스크린</p>
+                                <p><strong>배터리:</strong> 최대 24시간 사용</p>
+                                <p><strong>연결:</strong> Wi-Fi, 4G LTE, Bluetooth</p>
+                                <p><strong>결제방식:</strong> IC, 마그네틱, 터치, QR코드</p>
+                                <p><strong>추가기능:</strong> 영수증 프린터 내장, POS 연동</p>
+                            </div>
+                            <p>중대형 매장, 고객 응대가 많은 비즈니스에 적합합니다.</p>
+                        </div>
+                    </div>
+                    <div class="terminal-type">
+                        <div class="terminal-image">
+                            <img src="../images/terminal-mini.png" alt="미니 단말기">
+                        </div>
+                        <div class="terminal-info">
+                            <h3 class="terminal-name">미니 모델</h3>
+                            <div class="terminal-specs">
+                                <p><strong>화면:</strong> 2.8인치 터치스크린</p>
+                                <p><strong>배터리:</strong> 최대 10시간 사용</p>
+                                <p><strong>연결:</strong> Wi-Fi, Bluetooth</p>
+                                <p><strong>결제방식:</strong> IC, 마그네틱, 터치 결제</p>
+                                <p><strong>크기:</strong> 초소형, 주머니에 쏙</p>
+                            </div>
+                            <p>배달, 현장 영업, 팝업 스토어 등 이동이 많은 비즈니스에 적합합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>요금 안내</h2>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>스탠다드 모델</th>
+                            <th>프리미엄 모델</th>
+                            <th>미니 모델</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>단말기 보증금</td>
+                            <td>10만원</td>
+                            <td>15만원</td>
+                            <td>8만원</td>
+                        </tr>
+                        <tr>
+                            <td>월 임대료</td>
+                            <td>15,000원</td>
+                            <td>25,000원</td>
+                            <td>12,000원</td>
+                        </tr>
+                        <tr>
+                            <td>카드 수수료</td>
+                            <td>2.2% ~ 2.8%</td>
+                            <td>2.0% ~ 2.6%</td>
+                            <td>2.3% ~ 2.9%</td>
+                        </tr>
+                        <tr>
+                            <td>정산 주기</td>
+                            <td>D+1일</td>
+                            <td>D+1일</td>
+                            <td>D+1일</td>
+                        </tr>
+                        <tr>
+                            <td>무상 A/S 기간</td>
+                            <td>1년</td>
+                            <td>2년</td>
+                            <td>1년</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; color: #666; font-size: 14px;">※ 프로모션 기간에는 보증금 면제 혜택이 제공될 수 있습니다.</p>
+                
+                <div class="cta-section">
+                    <a href="apply.html?product=개인 단말기" class="primary-button">지금 신청하기</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>자주 묻는 질문</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <h3>계약 기간은 어떻게 되나요?</h3>
+                        <p>기본 계약 기간은 1년이며, 1년 이후에는 월 단위로 자유롭게 연장 또는 해지가 가능합니다. 조기 해지 시에는 위약금이 발생할 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>단말기 고장 시 어떻게 해야 하나요?</h3>
+                        <p>단말기 고장 시 고객센터(1600-8010)로 연락 주시면 즉시 대체 단말기를 배송해 드립니다. 무상 A/S 기간 내에는 무료로, 기간 이후에는 소정의 수리비가 발생할 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>인터넷이 안 되는 곳에서도 사용 가능한가요?</h3>
+                        <p>네, 4G LTE를 지원하는 모델은 와이파이가 없는 환경에서도 모바일 네트워크를 통해 결제가 가능합니다. 단, 통신이 완전히 불가능한 지역에서는 결제가 지연될 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>해외에서도 사용 가능한가요?</h3>
+                        <p>국내 사용 목적으로 제공되는 서비스이므로, 해외에서는 사용이 제한됩니다. 해외 사용이 필요한 경우 사전에 고객센터로 문의해 주세요.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>영수증 발급은 어떻게 하나요?</h3>
+                        <p>프리미엄 모델은 내장 프린터로 영수증 발급이 가능하며, 다른 모델은 모바일 앱을 통한 전자 영수증 발급 또는 별도 영수증 프린터 연결이 가능합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상담 신청 섹션 -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2>상담 신청</h2>
+                <p class="contact-intro">
+                    지금 바로 상담을 신청하시고 전문가의 맞춤형 안내를 받아보세요. 
+                    고객님의 비즈니스에 최적화된 개인 단말기 결제 솔루션을 제안해 드립니다.
+                </p>
+                
+                <form class="contact-form" id="consultationForm">
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
+                    </div>
+                    <button type="submit" class="btn btn-apply">상담 신청하기</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>문의 전화: 02-1234-5678</p>
+                    <p>이메일: info@ezworks.co.kr</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h4>회사 정보</h4>
+                    <p>주식회사 이지웍스</p>
+                    <p>설립: 2010년</p>
+                    <p>대표이사: 최영관</p>
+                    <p>사업자등록번호: 131-86-18827</p>
+                    <p>주소: 경기도 광명시 하안동 303 현대테라타워 12층 1204호</p>
+                </div>
+                <div class="contact-info">
+                    <h4>연락처</h4>
+                    <p>대표전화: 1600-8010</p>
+                    <p>이메일: s3013125@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <span>이용약관</span>
+                    <span>개인정보처리방침</span>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 이지웍스. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ 토글 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const title = item.querySelector('h3');
+                const content = item.querySelector('p');
+                
+                content.style.display = 'none';
+                
+                title.addEventListener('click', () => {
+                    const isOpen = content.style.display === 'block';
+                    
+                    // 모든 FAQ 닫기
+                    faqItems.forEach(i => {
+                        i.querySelector('p').style.display = 'none';
+                        i.classList.remove('open');
+                    });
+                    
+                    // 클릭한 항목 토글
+                    if (!isOpen) {
+                        content.style.display = 'block';
+                        item.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

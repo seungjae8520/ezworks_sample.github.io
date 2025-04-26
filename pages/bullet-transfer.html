@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>총알 송금 - Ezworks 결제 솔루션</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js" defer></script>
+    <style>
+        .product-header {
+            background-color: #f5f7ff;
+            padding: 100px 0 50px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-header:before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(18, 89, 195, 0.05) 0%, rgba(187, 197, 236, 0) 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .product-header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .product-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .product-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .product-logo {
+            max-height: 70px;
+            margin-bottom: 20px;
+        }
+        
+        .product-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .product-section:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .product-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(18, 89, 195, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .feature-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .product-image-showcase {
+            display: flex;
+            align-items: center;
+            margin: 50px 0;
+        }
+        
+        .product-image-container {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .product-image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-description {
+            flex: 1;
+            padding: 0 30px;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .pricing-table th {
+            background-color: #1259c3;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .primary-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #1259c3;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .primary-button:hover {
+            background-color: #0046be;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(18, 89, 195, 0.2);
+        }
+        
+        /* 상품 네비게이션 스타일 */
+        .product-navigation {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 70px;
+            left: 0;
+            z-index: 900;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .product-navigation .container {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .product-navigation ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-navigation li {
+            margin: 0;
+        }
+        
+        .product-navigation a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-navigation a:hover {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #1259c3;
+        }
+        
+        @media (max-width: 768px) {
+            .product-navigation {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                top: 80px;
+            }
+            
+            .product-navigation ul {
+                padding: 0 10px;
+            }
+            
+            .product-navigation a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .product-image-showcase {
+                flex-direction: column;
+            }
+            
+            .product-description {
+                padding: 30px 0 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../images/logo.png" alt="Ezworks"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html#payment-solutions" class="active">결제</a></li>
+                    <li><a href="apply.html">신청하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 상품 네비게이션 바 추가 -->
+    <div class="product-navigation">
+        <div class="container">
+            <ul>
+                <li><a href="bullet-transfer.html" class="active">총알 송금</a></li>
+                <li><a href="personal-terminal.html">개인 단말기</a></li>
+                <li><a href="multi-tid.html">TID 다중 결제</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <section class="product-header">
+            <div class="container">
+                <img src="../images/logo-bullet.png" alt="총알 송금" class="product-logo">
+                <h1 class="product-title">총알 송금</h1>
+                <p class="product-subtitle">단말기 없이 카드번호 입력만으로 즉시 입금되는 빠르고 편리한 결제 솔루션</p>
+                <a href="apply.html?product=총알 송금" class="primary-button">신청하기</a>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>총알 송금이란?</h2>
+                <div class="product-image-showcase">
+                    <div class="product-image-container">
+                        <img src="../images/bullet-transfer.png" alt="총알 송금 서비스">
+                    </div>
+                    <div class="product-description">
+                        <p>총알 송금은 별도의 단말기 없이 스마트폰만으로 카드 결제가 가능한 혁신적인 서비스입니다. 고객의 카드번호를 입력하는 즉시 계좌로 입금되어 빠르고 편리하게 결제를 처리할 수 있습니다.</p>
+                        <p>사업자뿐만 아니라 프리랜서, 개인 판매자 등 비사업자도 쉽게 이용할 수 있어 다양한 분야에서 활용되고 있습니다. 최저 1.7%의 경쟁력 있는 수수료와 24시간 실시간 정산 서비스를 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>주요 특징</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/mobile.svg" alt="모바일">
+                        </div>
+                        <h3 class="feature-title">스마트폰 앱 기반</h3>
+                        <p class="feature-description">별도의 단말기 없이 스마트폰 앱만으로 카드 결제 진행이 가능합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/card.svg" alt="카드">
+                        </div>
+                        <h3 class="feature-title">카드번호 입력만으로</h3>
+                        <p class="feature-description">카드번호와 유효기간 입력만으로 즉시 결제가 이루어집니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/user.svg" alt="사용자">
+                        </div>
+                        <h3 class="feature-title">사업자·비사업자 모두</h3>
+                        <p class="feature-description">사업자등록 여부와 관계없이 누구나 쉽게 이용할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/percent.svg" alt="할인">
+                        </div>
+                        <h3 class="feature-title">저렴한 수수료</h3>
+                        <p class="feature-description">최저 1.7%의 경쟁력 있는 수수료로 부담 없이 이용하세요. (카드사별 상이)</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/clock.svg" alt="시계">
+                        </div>
+                        <h3 class="feature-title">24시간 실시간 정산</h3>
+                        <p class="feature-description">언제든지 실시간으로 정산이 가능하여 자금 운용이 편리합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/bank.svg" alt="은행">
+                        </div>
+                        <h3 class="feature-title">계좌 연동 자동 정산</h3>
+                        <p class="feature-description">계좌와 연동하여 자동으로 정산되는 편리한 서비스를 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>수수료 안내</h2>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>카드사</th>
+                            <th>수수료율</th>
+                            <th>정산 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>국내 신용카드</td>
+                            <td>1.7% ~ 2.5%</td>
+                            <td>24시간 이내</td>
+                        </tr>
+                        <tr>
+                            <td>국내 체크카드</td>
+                            <td>1.7% ~ 2.0%</td>
+                            <td>24시간 이내</td>
+                        </tr>
+                        <tr>
+                            <td>해외 카드</td>
+                            <td>2.5% ~ 3.5%</td>
+                            <td>최대 3일 이내</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; color: #666; font-size: 14px;">※ 카드사 및 결제 금액에 따라 수수료율이 상이할 수 있습니다.</p>
+                
+                <div class="cta-section">
+                    <a href="apply.html?product=총알 송금" class="primary-button">지금 신청하기</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>자주 묻는 질문</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <h3>비사업자도 총알 송금을 이용할 수 있나요?</h3>
+                        <p>네, 사업자가 아니더라도 개인 판매자, 프리랜서 등 누구나 이용 가능합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>정산은 얼마나 빨리 이루어지나요?</h3>
+                        <p>일반적으로 24시간 이내에 정산이 완료되며, 즉시 정산 서비스도 이용 가능합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>별도의 단말기나 장비가 필요한가요?</h3>
+                        <p>아니요, 스마트폰 앱만 있으면 별도의 장비 없이 바로 이용 가능합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>월 사용료나 가입비가 있나요?</h3>
+                        <p>별도의 월 사용료나 가입비는 없으며, 결제 시 발생하는 수수료만 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상담 신청 섹션 -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2>상담 신청</h2>
+                <p class="contact-intro">
+                    지금 바로 상담을 신청하시고 총알 송금 서비스에 대한 맞춤형 안내를 받아보세요. 
+                    고객님의 비즈니스에 최적화된 송금 솔루션을 제안해 드립니다.
+                </p>
+                
+                <form class="contact-form" id="consultationForm">
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
+                    </div>
+                    <button type="submit" class="btn btn-apply">상담 신청하기</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>문의 전화: 02-1234-5678</p>
+                    <p>이메일: info@ezworks.co.kr</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h4>회사 정보</h4>
+                    <p>주식회사 이지웍스</p>
+                    <p>설립: 2010년</p>
+                    <p>대표이사: 최영관</p>
+                    <p>사업자등록번호: 131-86-18827</p>
+                    <p>주소: 경기도 광명시 하안동 303 현대테라타워 12층 1204호</p>
+                </div>
+                <div class="contact-info">
+                    <h4>연락처</h4>
+                    <p>대표전화: 1600-8010</p>
+                    <p>이메일: s3013125@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <span>이용약관</span>
+                    <span>개인정보처리방침</span>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 이지웍스. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ 토글 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const title = item.querySelector('h3');
+                const content = item.querySelector('p');
+                
+                content.style.display = 'none';
+                
+                title.addEventListener('click', () => {
+                    const isOpen = content.style.display === 'block';
+                    
+                    // 모든 FAQ 닫기
+                    faqItems.forEach(i => {
+                        i.querySelector('p').style.display = 'none';
+                        i.classList.remove('open');
+                    });
+                    
+                    // 클릭한 항목 토글
+                    if (!isOpen) {
+                        content.style.display = 'block';
+                        item.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TID 다중 결제 - Ezworks 결제 솔루션</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js" defer></script>
+    <style>
+        .product-header {
+            background-color: #f5f7ff;
+            padding: 100px 0 50px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-header:before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(18, 89, 195, 0.05) 0%, rgba(187, 197, 236, 0) 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .product-header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .product-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .product-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .product-logo {
+            max-height: 70px;
+            margin-bottom: 20px;
+        }
+        
+        .product-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .product-section:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .product-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(18, 89, 195, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .feature-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .product-image-showcase {
+            display: flex;
+            align-items: center;
+            margin: 50px 0;
+        }
+        
+        .product-image-container {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .product-image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-description {
+            flex: 1;
+            padding: 0 30px;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .pricing-table th {
+            background-color: #1259c3;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+        
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .primary-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #1259c3;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .primary-button:hover {
+            background-color: #0046be;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(18, 89, 195, 0.2);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-item h3 {
+            padding: 20px;
+            margin: 0;
+            font-size: 18px;
+            background-color: #f9fafc;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item h3:after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        .faq-item.open h3:after {
+            content: '-';
+        }
+        
+        .faq-item p {
+            margin: 0;
+            padding: 0 20px 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .use-case-item {
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .use-case-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .use-case-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background-color: #f0f4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .use-case-icon img {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .use-case-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1259c3;
+        }
+        
+        .use-case-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* 상품 네비게이션 스타일 */
+        .product-navigation {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 70px;
+            left: 0;
+            z-index: 900;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .product-navigation .container {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .product-navigation ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-navigation li {
+            margin: 0;
+        }
+        
+        .product-navigation a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-navigation a:hover {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active {
+            color: #1259c3;
+        }
+        
+        .product-navigation a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #1259c3;
+        }
+        
+        @media (max-width: 768px) {
+            .product-navigation {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                top: 80px;
+            }
+            
+            .product-navigation ul {
+                padding: 0 10px;
+            }
+            
+            .product-navigation a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        
+            .product-image-showcase {
+                flex-direction: column;
+            }
+            
+            .product-description {
+                padding: 30px 0 0;
+            }
+            
+            .features-grid, .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../images/logo.png" alt="Ezworks"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html#payment-solutions" class="active">결제</a></li>
+                    <li><a href="apply.html">신청하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 상품 네비게이션 바 추가 -->
+    <div class="product-navigation">
+        <div class="container">
+            <ul>
+                <li><a href="bullet-transfer.html">총알 송금</a></li>
+                <li><a href="personal-terminal.html">개인 단말기</a></li>
+                <li><a href="multi-tid.html" class="active">TID 다중 결제</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <section class="product-header">
+            <div class="container">
+                <img src="../images/logo-tid.png" alt="TID 다중 결제" class="product-logo">
+                <h1 class="product-title">TID 다중 결제</h1>
+                <p class="product-subtitle">인건비·서비스 분리 매출 처리가 가능한 특화된 결제 솔루션</p>
+                <a href="apply.html?product=TID 다중 결제" class="primary-button">신청하기</a>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>TID 다중 결제 시스템</h2>
+                <div class="product-image-showcase">
+                    <div class="product-image-container">
+                        <img src="../images/multi-tid.png" alt="TID 다중 결제 서비스">
+                    </div>
+                    <div class="product-description">
+                        <p>TID 다중 결제 시스템은 하나의 사업장에서 여러 종류의 매출을 분리하여 관리할 수 있는 특화된 결제 솔루션입니다. 인건비, 서비스, 제품 등 다양한 매출 유형을 분리하여 정산할 수 있어 효율적인 자금 관리가 가능합니다.</p>
+                        <p>특히 마사지샵, 네일샵, 미용실, 노래방 등 인건비 정산이 필요한 업종에서 널리 사용되고 있으며, 최대 5개 계정의 동시 운영을 지원하여 복잡한 매출 구조도 쉽게 관리할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>주요 특징</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/card.svg" alt="카드">
+                        </div>
+                        <h3 class="feature-title">매출 분리 관리</h3>
+                        <p class="feature-description">인건비, 서비스, 상품 등 다양한 매출을 분리하여 효율적으로 관리할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/user.svg" alt="사용자">
+                        </div>
+                        <h3 class="feature-title">다계정 운영</h3>
+                        <p class="feature-description">최대 5개 계정을 동시에 운영하여 다양한 담당자별로 매출을 분리할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/mobile.svg" alt="모바일">
+                        </div>
+                        <h3 class="feature-title">업종별 맞춤 설정</h3>
+                        <p class="feature-description">특화된 업종에 맞게 설정을 커스터마이징할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/percent.svg" alt="할인">
+                        </div>
+                        <h3 class="feature-title">효율적인 수수료</h3>
+                        <p class="feature-description">업종별로 2.5%~3.5%의 합리적인 수수료 체계를 제공합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/clock.svg" alt="시계">
+                        </div>
+                        <h3 class="feature-title">분리 정산 시스템</h3>
+                        <p class="feature-description">계정별로 각각 다른 계좌로 정산이 가능하여 급여 관리가 편리합니다.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="../images/icons/bank.svg" alt="은행">
+                        </div>
+                        <h3 class="feature-title">통합 리포트</h3>
+                        <p class="feature-description">모든 계정의 매출을 한눈에 확인할 수 있는 통합 리포트를 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>활용 업종</h2>
+                <p style="text-align: center; margin-bottom: 40px;">TID 다중 결제는 다양한 업종에서 유용하게 활용할 수 있습니다.</p>
+                <div class="use-case-grid">
+                    <div class="use-case-item">
+                        <div class="use-case-icon">
+                            <img src="../images/icons/massage.svg" alt="마사지">
+                        </div>
+                        <h3 class="use-case-title">마사지/스파</h3>
+                        <p class="use-case-description">테라피스트의 인건비와 시설 사용료를 분리하여 관리할 수 있습니다.</p>
+                    </div>
+                    <div class="use-case-item">
+                        <div class="use-case-icon">
+                            <img src="../images/icons/beauty.svg" alt="뷰티">
+                        </div>
+                        <h3 class="use-case-title">미용실/네일샵</h3>
+                        <p class="use-case-description">디자이너의 인건비와 제품 판매, 시술료를 효율적으로 분리합니다.</p>
+                    </div>
+                    <div class="use-case-item">
+                        <div class="use-case-icon">
+                            <img src="../images/icons/music.svg" alt="음악">
+                        </div>
+                        <h3 class="use-case-title">노래방/클럽</h3>
+                        <p class="use-case-description">시설 이용료와 음료/주류 판매를 분리하여 관리할 수 있습니다.</p>
+                    </div>
+                    <div class="use-case-item">
+                        <div class="use-case-icon">
+                            <img src="../images/icons/restaurant.svg" alt="레스토랑">
+                        </div>
+                        <h3 class="use-case-title">음식점/카페</h3>
+                        <p class="use-case-description">메뉴별, 종업원별로 매출을 분리하여 효율적인 관리가 가능합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>요금 안내</h2>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>업종</th>
+                            <th>수수료</th>
+                            <th>계정 수</th>
+                            <th>정산 주기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>마사지/스파</td>
+                            <td>2.5% ~ 3.0%</td>
+                            <td>최대 5개</td>
+                            <td>D+1일</td>
+                        </tr>
+                        <tr>
+                            <td>미용/네일</td>
+                            <td>2.7% ~ 3.2%</td>
+                            <td>최대 5개</td>
+                            <td>D+1일</td>
+                        </tr>
+                        <tr>
+                            <td>노래방/유흥</td>
+                            <td>3.0% ~ 3.5%</td>
+                            <td>최대 5개</td>
+                            <td>D+1일</td>
+                        </tr>
+                        <tr>
+                            <td>기타 업종</td>
+                            <td>별도 협의</td>
+                            <td>협의 가능</td>
+                            <td>협의 가능</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; color: #666; font-size: 14px;">※ 업종 및 매출 규모에 따라 수수료가 달라질 수 있습니다.</p>
+                
+                <div class="cta-section">
+                    <a href="apply.html?product=TID 다중 결제" class="primary-button">지금 신청하기</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <h2>자주 묻는 질문</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <h3>계정은 최대 몇 개까지 사용할 수 있나요?</h3>
+                        <p>기본적으로 최대 5개 계정까지 지원하며, 필요에 따라 추가 계정 개설도 협의 가능합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>각 계정별로 정산 계좌를 다르게 설정할 수 있나요?</h3>
+                        <p>네, 각 계정마다 다른 정산 계좌를 설정할 수 있어 인건비를 직원 계좌로 바로 정산하는 것도 가능합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>매출 리포트는 어떻게 확인할 수 있나요?</h3>
+                        <p>웹과 모바일 앱을 통해 실시간으로 각 계정별 매출과 통합 매출 현황을 확인할 수 있습니다. 일별, 주별, 월별 리포트를 제공합니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>결제 단말기는 몇 대가 필요한가요?</h3>
+                        <p>하나의 단말기로 모든 계정의 결제를 처리할 수 있습니다. 결제 시 계정을 선택하는 메뉴가 제공됩니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>직원이 퇴사할 경우 계정 관리는 어떻게 하나요?</h3>
+                        <p>관리자 계정을 통해 언제든지 계정을 추가, 삭제, 수정할 수 있습니다. 직원 변경 시 쉽게 계정 정보를 업데이트하실 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h4>회사 정보</h4>
+                    <p>주식회사 이지웍스</p>
+                    <p>설립: 2010년</p>
+                    <p>대표이사: 최영관</p>
+                    <p>사업자등록번호: 131-86-18827</p>
+                    <p>주소: 경기도 광명시 하안동 303 현대테라타워 12층 1204호</p>
+                </div>
+                <div class="contact-info">
+                    <h4>연락처</h4>
+                    <p>대표전화: 1600-8010</p>
+                    <p>이메일: s3013125@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <span>이용약관</span>
+                    <span>개인정보처리방침</span>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 이지웍스. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ 토글 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const title = item.querySelector('h3');
+                const content = item.querySelector('p');
+                
+                content.style.display = 'none';
+                
+                title.addEventListener('click', () => {
+                    const isOpen = content.style.display === 'block';
+                    
+                    // 모든 FAQ 닫기
+                    faqItems.forEach(i => {
+                        i.querySelector('p').style.display = 'none';
+                        i.classList.remove('open');
+                    });
+                    
+                    // 클릭한 항목 토글
+                    if (!isOpen) {
+                        content.style.display = 'block';
+                        item.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

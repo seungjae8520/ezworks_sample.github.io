@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ezworks - 비즈니스 결제 솔루션</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="#" onclick="scrollToTop()"><img src="images/logo.png" alt="Ezworks"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#payment-solutions" class="active">결제</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="diagonal-line"></div>
+            <div class="circular-line"></div>
+            <div class="spinning-line"></div>
+            <div class="spinning-line-2"></div>
+            <div class="spinning-line-3"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Ezworks에서 제공하는<br>비즈니스 솔루션</h1>
+                    <p>결제 시스템이 <strong>더</strong> 놀라워집니다</p>
+                    <button class="cta-button" onclick="scrollToSection('contact')">신청하기</button>
+                </div>
+            </div>
+            <div class="particle-1"></div>
+            <div class="particle-2"></div>
+            <div class="scroll-arrow" onclick="scrollToSection('payment-solutions')"></div>
+        </section>
+
+        <section id="payment-solutions" class="payment-solutions scroll-animate">
+            <div class="container">
+                <h2 class="scroll-animate">결제 서비스</h2>
+                
+                <!-- 상품 네비게이션 메뉴 -->
+                <div class="product-nav scroll-animate">
+                    <ul>
+                        <li><a href="#" class="active" data-slide="0">총알 송금</a></li>
+                        <li><a href="#" data-slide="1">개인 단말기</a></li>
+                        <li><a href="#" data-slide="2">TID 다중 결제</a></li>
+                    </ul>
+                </div>
+                
+                <div class="product-showcase">
+                    <div class="slider-container scroll-animate">
+                        <div class="slider-wrapper">
+                            <div class="slider">
+                                <!-- 슬라이드 1: 총알 송금 -->
+                                <div class="slide">
+                                    <div class="slide-inner">
+                                        <div class="product-image-container">
+                                            <img src="images/bullet-transfer.png" alt="총알 송금 서비스" class="product-image">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-logo">
+                                                <img src="images/logo-bullet.png" alt="총알 송금 로고">
+                                            </div>
+                                            <h3 class="product-title">총알 송금</h3>
+                                            <p class="product-subtitle">단말기 없이 카드번호 입력만으로 즉시 입금</p>
+                                            <div class="product-actions">
+                                                <a href="pages/bullet-transfer.html" class="btn-more">더 알아보기</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 슬라이드 2: 무선 단말기 -->
+                                <div class="slide">
+                                    <div class="slide-inner">
+                                        <div class="product-image-container">
+                                            <img src="images/wireless-terminal.png" alt="무선 단말기 서비스" class="product-image">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-logo">
+                                                <img src="images/logo-wireless.png" alt="무선 단말기 로고">
+                                            </div>
+                                            <h3 class="product-title">개인 단말기</h3>
+                                            <p class="product-subtitle">이동형 결제 단말기로 어디서나 편리하게</p>
+                                            <div class="product-actions">
+                                                <a href="pages/personal-terminal.html" class="btn-more">더 알아보기</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 슬라이드 3: TID 다중 결제 -->
+                                <div class="slide">
+                                    <div class="slide-inner">
+                                        <div class="product-image-container">
+                                            <img src="images/multi-tid.png" alt="TID 다중 결제 서비스" class="product-image">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-logo">
+                                                <img src="images/logo-tid.png" alt="TID 다중 결제 로고">
+                                            </div>
+                                            <h3 class="product-title">TID 다중 결제</h3>
+                                            <p class="product-subtitle">인건비·서비스 분리 매출 처리 가능</p>
+                                            <div class="product-actions">
+                                                <a href="pages/multi-tid.html" class="btn-more">더 알아보기</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 슬라이더 컨트롤 -->
+                        <button class="slider-control prev" aria-label="이전 슬라이드">&lt;</button>
+                        <button class="slider-control next" aria-label="다음 슬라이드">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="particle"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h4>회사 정보</h4>
+                    <p>주식회사 이지웍스</p>
+                    <p>설립: 2010년</p>
+                    <p>대표이사: 최영관</p>
+                    <p>사업자등록번호: 131-86-18827</p>
+                    <p>주소: 경기도 광명시 하안동 303 현대테라타워 12층 1204호</p>
+                </div>
+                <div class="contact-info">
+                    <h4>연락처</h4>
+                    <p>대표전화: 1600-8010</p>
+                    <p>이메일: s3013125@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <span>이용약관</span>
+                    <span>개인정보처리방침</span>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 이지웍스. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
