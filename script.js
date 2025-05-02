@@ -189,39 +189,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const successModal = document.getElementById('success-modal');
     const closeModalBtn = document.querySelector('.close');
     
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // 폼 데이터 수집
-        const formData = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            product: document.getElementById('product').value,
-            message: document.getElementById('message').value
-        };
-        
-        // 데이터 저장 (실제로는 서버로 전송)
-        saveFormData(formData);
-        
-        // 폼 초기화
-        contactForm.reset();
-        
-        // 성공 모달 표시
-        successModal.classList.add('show');
-    });
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 폼 데이터 수집
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                product: document.getElementById('product').value,
+                message: document.getElementById('message').value
+            };
+            
+            // 데이터 저장 (실제로는 서버로 전송)
+            saveFormData(formData);
+            
+            // 폼 초기화
+            contactForm.reset();
+            
+            // 성공 모달 표시
+            successModal.classList.add('show');
+        });
+    }
     
-    // 모달 닫기
-    closeModalBtn.addEventListener('click', function() {
-        successModal.classList.remove('show');
-    });
-    
-    // 모달 외부 클릭 시 닫기
-    window.addEventListener('click', function(e) {
-        if (e.target === successModal) {
+    // 모달 닫기 버튼이 존재하는 경우에만 이벤트 등록
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
             successModal.classList.remove('show');
-        }
-    });
+        });
+    }
+    
+    // 모달 외부 클릭 시 닫기 - 모달이 존재할 때만 작동하도록 수정
+    if (successModal) {
+        window.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                successModal.classList.remove('show');
+            }
+        });
+    }
     
     // 스크롤 이동 함수
     window.scrollToSection = function(sectionId) {

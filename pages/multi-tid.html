@@ -5,370 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TID 다중 결제 - Ezworks 결제 솔루션</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="css/multi-tid.css">
     <script src="../script.js" defer></script>
-    <style>
-        .product-header {
-            background-color: #f5f7ff;
-            padding: 100px 0 50px;
-            text-align: center;
-            margin-top: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-header:before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(18, 89, 195, 0.05) 0%, rgba(187, 197, 236, 0) 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        
-        .product-header .container {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .product-title {
-            font-size: 42px;
-            margin-bottom: 15px;
-            color: #000;
-        }
-        
-        .product-subtitle {
-            font-size: 18px;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        .product-logo {
-            max-height: 70px;
-            margin-bottom: 20px;
-        }
-        
-        .product-section {
-            padding: 80px 0;
-            background-color: #fff;
-        }
-        
-        .product-section:nth-child(even) {
-            background-color: #f9fafc;
-        }
-        
-        .product-section h2 {
-            font-size: 32px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .feature-item {
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(18, 89, 195, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        .feature-icon img {
-            width: 30px;
-            height: 30px;
-        }
-        
-        .feature-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #000;
-        }
-        
-        .feature-description {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        
-        .product-image-showcase {
-            display: flex;
-            align-items: center;
-            margin: 50px 0;
-        }
-        
-        .product-image-container {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .product-image-container img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .product-description {
-            flex: 1;
-            padding: 0 30px;
-        }
-        
-        .pricing-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .pricing-table th {
-            background-color: #1259c3;
-            color: #fff;
-            padding: 15px;
-            text-align: left;
-        }
-        
-        .pricing-table tr:nth-child(even) {
-            background-color: #f9fafc;
-        }
-        
-        .pricing-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .pricing-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .cta-section {
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .primary-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: #1259c3;
-            color: #fff;
-            font-size: 18px;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .primary-button:hover {
-            background-color: #0046be;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(18, 89, 195, 0.2);
-        }
-        
-        .faq-item {
-            margin-bottom: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-        
-        .faq-item h3 {
-            padding: 20px;
-            margin: 0;
-            font-size: 18px;
-            background-color: #f9fafc;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .faq-item h3:after {
-            content: '+';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
-        
-        .faq-item.open h3:after {
-            content: '-';
-        }
-        
-        .faq-item p {
-            margin: 0;
-            padding: 0 20px 20px;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .use-case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .use-case-item {
-            padding: 25px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .use-case-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .use-case-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            background-color: #f0f4ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .use-case-icon img {
-            width: 35px;
-            height: 35px;
-        }
-        
-        .use-case-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1259c3;
-        }
-        
-        .use-case-description {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.5;
-        }
-        
-        /* 상품 네비게이션 스타일 */
-        .product-navigation {
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            top: 70px;
-            left: 0;
-            z-index: 900;
-            border-top: 1px solid #f0f0f0;
-        }
-        
-        .product-navigation .container {
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-        
-        .product-navigation ul {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .product-navigation li {
-            margin: 0;
-        }
-        
-        .product-navigation a {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .product-navigation a:hover {
-            color: #1259c3;
-        }
-        
-        .product-navigation a.active {
-            color: #1259c3;
-        }
-        
-        .product-navigation a.active:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #1259c3;
-        }
-        
-        @media (max-width: 768px) {
-            .product-navigation {
-                overflow-x: auto;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-                top: 80px;
-            }
-            
-            .product-navigation ul {
-                padding: 0 10px;
-            }
-            
-            .product-navigation a {
-                padding: 12px 15px;
-                font-size: 14px;
-            }
-        
-            .product-image-showcase {
-                flex-direction: column;
-            }
-            
-            .product-description {
-                padding: 30px 0 0;
-            }
-            
-            .features-grid, .use-case-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-title {
-                font-size: 32px;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -386,7 +24,7 @@
     </header>
 
     <!-- 상품 네비게이션 바 추가 -->
-    <div class="product-navigation">
+    <div class="product-navigation" style="background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); position: static; width: 100%; z-index: 900; border-top: 1px solid #f0f0f0; margin-top: 85px;">
         <div class="container">
             <ul>
                 <li><a href="bullet-transfer.html">총알 송금</a></li>
@@ -397,11 +35,13 @@
     </div>
 
     <main>
-        <section class="product-header">
+        <section class="product-header" style="padding-top: 60px;">
             <div class="container">
-                <img src="../images/logo-tid.png" alt="TID 다중 결제" class="product-logo">
                 <h1 class="product-title">TID 다중 결제</h1>
-                <p class="product-subtitle">인건비·서비스 분리 매출 처리가 가능한 특화된 결제 솔루션</p>
+                <p class="product-subtitle">다양한 결제 계정을 하나의 단말기로 편리하게 관리하는 솔루션</p>
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #1259c3; font-size: 24px; margin-bottom: 15px;">"인건비와 매출을 분리하여 편리한 정산"</h3>
+                </div>
                 <a href="apply.html?product=TID 다중 결제" class="primary-button">신청하기</a>
             </div>
         </section>
@@ -414,8 +54,8 @@
                         <img src="../images/multi-tid.png" alt="TID 다중 결제 서비스">
                     </div>
                     <div class="product-description">
-                        <p>TID 다중 결제 시스템은 하나의 사업장에서 여러 종류의 매출을 분리하여 관리할 수 있는 특화된 결제 솔루션입니다. 인건비, 서비스, 제품 등 다양한 매출 유형을 분리하여 정산할 수 있어 효율적인 자금 관리가 가능합니다.</p>
-                        <p>특히 마사지샵, 네일샵, 미용실, 노래방 등 인건비 정산이 필요한 업종에서 널리 사용되고 있으며, 최대 5개 계정의 동시 운영을 지원하여 복잡한 매출 구조도 쉽게 관리할 수 있습니다.</p>
+                        <p>TID 다중 결제 시스템은 하나의 단말기로 여러 사업자의 매출을 자동으로 분리하고 관리할 수 있는 혁신적인 결제 솔루션입니다. 동일한 매장에서 사업 유형별(TID)로 매출을 분리하여, 사업자 등록이 다른 경우에도 개별 신고가 가능합니다.</p>
+                        <p>상품 및 서비스별로 다른 TID를 적용하여 부가가치세를 절감할 수 있으며, 카드 결제 시 매출 분리가 자동으로 적용되도록 설정할 수 있습니다. 특히 프리랜서와 사업자가 함께 운영하는 매장이나 복합 서비스를 제공하는 업체에 최적화되어 있습니다.</p>
                     </div>
                 </div>
             </div>
@@ -429,22 +69,22 @@
                         <div class="feature-icon">
                             <img src="../images/icons/card.svg" alt="카드">
                         </div>
-                        <h3 class="feature-title">매출 분리 관리</h3>
-                        <p class="feature-description">인건비, 서비스, 상품 등 다양한 매출을 분리하여 효율적으로 관리할 수 있습니다.</p>
+                        <h3 class="feature-title">자동 매출 분리</h3>
+                        <p class="feature-description">카드 결제 시 설정에 따라 자동으로 매출이 분리되어 처리됩니다.</p>
                     </div>
                     <div class="feature-item">
                         <div class="feature-icon">
                             <img src="../images/icons/user.svg" alt="사용자">
                         </div>
-                        <h3 class="feature-title">다계정 운영</h3>
-                        <p class="feature-description">최대 5개 계정을 동시에 운영하여 다양한 담당자별로 매출을 분리할 수 있습니다.</p>
+                        <h3 class="feature-title">단일 단말기</h3>
+                        <p class="feature-description">하나의 단말기로 여러 사업자의 매출 관리가 가능하여 통신료를 절감할 수 있습니다.</p>
                     </div>
                     <div class="feature-item">
                         <div class="feature-icon">
                             <img src="../images/icons/mobile.svg" alt="모바일">
                         </div>
-                        <h3 class="feature-title">업종별 맞춤 설정</h3>
-                        <p class="feature-description">특화된 업종에 맞게 설정을 커스터마이징할 수 있습니다.</p>
+                        <h3 class="feature-title">부가세 절감</h3>
+                        <p class="feature-description">상품 및 서비스별 TID 분리로 효율적인 부가가치세 관리가 가능합니다.</p>
                     </div>
                     <div class="feature-item">
                         <div class="feature-icon">
@@ -464,8 +104,8 @@
                         <div class="feature-icon">
                             <img src="../images/icons/bank.svg" alt="은행">
                         </div>
-                        <h3 class="feature-title">통합 리포트</h3>
-                        <p class="feature-description">모든 계정의 매출을 한눈에 확인할 수 있는 통합 리포트를 제공합니다.</p>
+                        <h3 class="feature-title">개별 사업자 신고</h3>
+                        <p class="feature-description">사업자별로 분리된 매출 데이터로 독립적인 신고가 가능합니다.</p>
                     </div>
                 </div>
             </div>
@@ -579,6 +219,71 @@
                         <h3>직원이 퇴사할 경우 계정 관리는 어떻게 하나요?</h3>
                         <p>관리자 계정을 통해 언제든지 계정을 추가, 삭제, 수정할 수 있습니다. 직원 변경 시 쉽게 계정 정보를 업데이트하실 수 있습니다.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 신청 양식 섹션 추가 -->
+        <section class="product-section" id="application-form">
+            <div class="container">
+                <h2>온라인 신청하기</h2>
+                <div class="application-form-container">
+                    <form method="POST" action="/submit" enctype="multipart/form-data" class="tid-application-form">
+                        <h3>[다중TID] 사업자 단말기 신청서</h3>
+
+                        <!-- 파일 업로드 섹션 -->
+                        <div class="form-group">
+                            <label>1. 다중1 사업자등록증 사본</label>
+                            <input type="file" name="biz_license_tid1" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>2. 다중1 통장사본</label>
+                            <input type="file" name="bank_copy_tid1" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>3. 다중TID1 대표자 신분증</label>
+                            <input type="file" name="id_tid1" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>4. 다중TID2 (사업자 or 개인 신분증)</label>
+                            <input type="file" name="id_tid2" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>5. 다중TID2 입금 통장사본</label>
+                            <input type="file" name="bank_copy_tid2" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>6. 다중TID2 대표자 신분증</label>
+                            <input type="file" name="id_tid2_representative" accept=".jpg,.jpeg,.png" required />
+                        </div>
+
+                        <!-- 기본 정보 입력 -->
+                        <div class="form-group">
+                            <label>7. 이메일 주소</label>
+                            <input type="email" name="email" placeholder="example@domain.com" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>8. 대표자 휴대폰번호 (숫자만 입력)</label>
+                            <input type="tel" name="phone" pattern="[0-9]{10,11}" placeholder="01012345678" required />
+                        </div>
+
+                        <!-- 기타 문의사항 -->
+                        <div class="form-group">
+                            <label>9. 기타 문의사항 (최대 100자)</label>
+                            <textarea name="message" maxlength="100" rows="3" placeholder="문의사항을 입력해주세요."></textarea>
+                        </div>
+
+                        <!-- 제출 -->
+                        <div class="form-submit">
+                            <button type="submit" class="primary-button">신청하기</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
